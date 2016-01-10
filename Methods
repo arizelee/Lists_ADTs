@@ -1,0 +1,107 @@
+public class LMethod {
+    
+   /* The swap method. It saves the value of the current element, removes it,
+    carries the pointer one place to the right, and it inserts it there.
+    */
+    
+  static void swap(List<Integer> l) {
+      
+      if (l.currPos() >= l.length()) { return;}
+      if(l.length() >= 2){
+        Integer place;
+        place = l.getValue();
+        l.remove();
+        l.next();
+        l.insert(place);
+      }
+      else {}
+ }
+
+  
+    /* The reverse method. It first calculates the logical number of times the loop will be iterated.
+    The first iteration removes the number at the last position (using r= list.length()) and inserts it at the first position 
+    (using val, which starts at zero), and does the reverse for the following value (that was previously the first one, 
+    by using val, which starts at 0). r is reduced by one and val increased by one, and the loop repeats.
+  */
+  static void reverse(List<Integer> l){
+      
+      if (l.length() < 2) {}
+      
+            
+      int r = l.length()-1;
+      int num= 0;
+      Integer val;
+
+      if(l.length() >= 2 ){
+            for(int c= 0; c != (l.length() / 2); c++) {
+
+                l.moveToPos(r);
+                val = l.getValue();
+                l.remove();
+                l.moveToPos(num);
+                l.insert(val);
+                l.next();
+                val = l.getValue();
+                l.remove();
+                l.moveToPos(r);
+                l.insert(val);
+                r--;
+                num++;
+            }
+        }
+
+      }
+  
+      /*
+      If either list is empty,the full one become the merged list. If both are empty, the new list is null.
+      Otherwise, the methods commented below occur.
+  */
+  static List mergeLists(List<Integer> l1, List<Integer> l2){
+
+     if(l1.length()== 0 && l2.length() > 0) 
+         return l2;
+     
+     
+      if(l1.length() > 0 && l2.length() == 0)
+         return l1;
+     
+      
+      if(l1.length()== 0 && l2.length() == 0)
+         return null;
+    
+     
+     //Create copy of l2: l2b, and create list: l3 for merge
+      
+      List<Integer> l2b = l2;
+      List<Integer> l3 = l1;
+      l1.moveToStart();
+      l2b.moveToStart();
+    
+      //input values from l2b until q = the number of elements in l2
+      
+      for (int q=0; q < l2b.length(); q++) {
+      
+        l3.moveToStart();
+        l3.insert(l2b.getValue());
+        l2b.next();
+
+       Integer a = l3.getValue();
+       int g = 1;
+       l3.moveToPos(g);
+
+       /*from the start of 13, delete, shift right and insert value until everything left of it is a value greater 
+       than it is found or until the end of the list is reached
+       */
+       for (int c=1; a > l3.getValue() && c < l3.length(); c++){
+              l3.moveToPos(g-1);
+              l3.remove();
+              l3.next();
+              l3.insert(a);
+              l3.next();
+              g = l3.currPos();
+
+           }
+      }
+    return l3;
+    }
+}
